@@ -13,4 +13,8 @@ public class ServiceManager {
 	public void shutdown() {
 		hornetqManager.shutdown();
 	}
+
+	public HornetQServiceManager queue() {
+		return hornetqManager;
+	}
 }
