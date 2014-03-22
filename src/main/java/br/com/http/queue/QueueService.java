@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/queue")
+@Path("/message")
 @RequestScoped
 public class QueueService {
 
@@ -20,8 +20,19 @@ public class QueueService {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createMessage(@FormParam("url") String url) {
-		queue.send(new HttpRequestMessage(url));
+	public Response createMessage(@FormParam("method") String method, @FormParam("url") String url, @FormParam("cookie-content") String cookieContent,
+			@FormParam("cookie-name") String cookieName, @FormParam("username") String basicAuthUsername,
+			@FormParam("password") String basicAuthPassword) {
+		HttpRequestMessage message = new HttpRequestMessage(method, url);
+
+		if (cookieName != null) {
+			message.withCookie(cookieName, cookieContent);
+		}
+		if (basicAuthUsername != null) {
+			message.withBasicAuth(basicAuthUsername, basicAuthPassword);
+		}
+
+		queue.send(message);
 		return Response.ok().build();
 	}
 }
