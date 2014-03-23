@@ -212,4 +212,15 @@ public class Job {
 
 		return message;
 	}
+
+	public void configureCronExpression(String cron) {
+		String[] parts = cron.split(" ");
+		this.second = parts[0];
+		this.minute = parts[1];
+		this.hour = parts[2];
+		this.dayOfWeek = parts[3];
+		this.dayOfMonth = parts[4];
+		this.month = parts[5];
+		this.year = parts[6];
+	}
 }
