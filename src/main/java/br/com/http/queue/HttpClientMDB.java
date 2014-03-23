@@ -18,6 +18,9 @@ public class HttpClientMDB implements MessageListener {
 			ObjectMessage msg = (ObjectMessage) message;
 			HttpRequestMessage httpRequestMessage = (HttpRequestMessage) msg.getObject();
 			httpRequestMessage.send();
+			if (!httpRequestMessage.success()) {
+				throw new RuntimeException("Message not processed - HTTP error code : " + httpRequestMessage.getResponseStatus());
+			}
 		} catch (JMSException e) {
 			throw new EJBException(e);
 		}

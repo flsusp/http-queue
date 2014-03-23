@@ -41,6 +41,9 @@ public class HttpRequestMessage implements Serializable {
 	private String password;
 	private boolean useBasicAuth = false;
 
+	private int responseStatus;
+	private String responseContent;
+
 	public HttpRequestMessage(String method, String url) {
 		super();
 		this.method = method;
@@ -95,21 +98,32 @@ public class HttpRequestMessage implements Serializable {
 			Stopwatch stopwatch = Stopwatch.createStarted();
 
 			try (CloseableHttpResponse response = httpClient.execute(http)) {
-				int responseStatus = response.getStatusLine().getStatusCode();
-				String responseContent = EntityUtils.toString(response.getEntity());
+				responseStatus = response.getStatusLine().getStatusCode();
+				responseContent = EntityUtils.toString(response.getEntity());
 				stopwatch.stop();
 
-				if (responseStatus == Status.OK.getStatusCode()) {
+				if (success()) {
 					logger.info("Request to {} processed successfully with code {} [{} ms] : \n{}", url,
 							responseStatus, stopwatch.elapsed(TimeUnit.MILLISECONDS), responseContent);
 				} else {
 					logger.info("Request to {} processed with error code {} [{} ms] : \n{}", url, responseStatus,
 							stopwatch.elapsed(TimeUnit.MILLISECONDS), responseContent);
-					throw new RuntimeException("Message not processed - HTTP error code : " + responseStatus);
 				}
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public int getResponseStatus() {
+		return responseStatus;
+	}
+
+	public String getResponseContent() {
+		return responseContent;
+	}
+
+	public boolean success() {
+		return responseStatus == Status.OK.getStatusCode();
 	}
 }
