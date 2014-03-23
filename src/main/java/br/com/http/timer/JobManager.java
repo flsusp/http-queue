@@ -47,7 +47,7 @@ public class JobManager {
 		Job job = em.find(Job.class, jobId);
 		TimerHandle timerHandle = job.geTimerHandle();
 		timerHandle.getTimer().cancel();
-		em.remove(job);
+		job.inactivate();
 	}
 
 	@Timeout

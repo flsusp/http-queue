@@ -60,6 +60,9 @@ public class Job {
 	@Column(length = 255, nullable = false)
 	private String year = "*";
 
+	@Column(nullable = false)
+	private boolean active = true;
+
 	@Lob
 	private Blob timerHandle;
 
@@ -222,5 +225,9 @@ public class Job {
 		this.dayOfMonth = parts[4];
 		this.month = parts[5];
 		this.year = parts[6];
+	}
+
+	public void inactivate() {
+		this.active = false;
 	}
 }
