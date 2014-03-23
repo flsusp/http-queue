@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,11 +15,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.com.http.queue.HttpRequestMessage;
 
 @Entity
 @Table(name = "esb_job_execution")
 public class JobExecution {
+
+	private static final Logger logger = LoggerFactory.getLogger(JobExecution.class);
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,9 +47,17 @@ public class JobExecution {
 	@Column(nullable = true, length = 10240)
 	private String httpResponseContent;
 
+	@Column(nullable = true, length = 1024)
+	private String clientError;
+
+	@Column(nullable = false, length = 50)
+	@Enumerated(EnumType.STRING)
+	private JobExecutionStatus status;
+
 	public JobExecution(Job job) {
 		this.job = job;
 		this.start = new Date();
+		this.status = JobExecutionStatus.Running;
 	}
 
 	protected JobExecution() {
@@ -52,9 +67,27 @@ public class JobExecution {
 	public void execute() {
 		HttpRequestMessage http = job.createHttpRequestMessage();
 
-		http.send();
+		try {
+			http.send();
 
-		this.httpResponseStatus = http.getResponseStatus();
-		this.httpResponseContent = http.getResponseContent();
+			this.httpResponseStatus = http.getResponseStatus();
+			this.httpResponseContent = http.getResponseContent();
+
+			if (this.httpResponseContent != null && this.httpResponseContent.length() > 10240) {
+				this.httpResponseContent = this.httpResponseContent.substring(0, 10239);
+			}
+
+			this.status = JobExecutionStatus.Success;
+		} catch (Exception e) {
+			this.status = JobExecutionStatus.Failed;
+			logger.error("Error executing job http request.", e);
+
+			this.clientError = e.getMessage();
+			if (this.clientError != null && this.clientError.length() > 1024) {
+				this.clientError = this.clientError.substring(0, 1023);
+			}
+		} finally {
+			this.finish = new Date();
+		}
 	}
 }
