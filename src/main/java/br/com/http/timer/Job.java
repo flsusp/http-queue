@@ -17,6 +17,8 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.sql.rowset.serial.SerialBlob;
 
+import com.google.common.base.Joiner;
+
 import br.com.http.queue.HttpRequestMessage;
 
 @Entity
@@ -227,7 +229,15 @@ public class Job {
 		this.year = parts[6];
 	}
 
+	public String getCronExpression() {
+		return Joiner.on(' ').join(this.second, minute, hour, dayOfWeek, dayOfMonth, month, year);
+	}
+	
 	public void inactivate() {
 		this.active = false;
+	}
+
+	public boolean isActivate() {
+		return this.active;
 	}
 }
