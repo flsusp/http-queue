@@ -44,9 +44,6 @@ public class JobExecution {
 	@Column(nullable = true)
 	private Integer httpResponseStatus;
 
-	@Column(nullable = true, length = 10240)
-	private String httpResponseContent;
-
 	@Column(nullable = true, length = 1024)
 	private String clientError;
 
@@ -71,11 +68,6 @@ public class JobExecution {
 			http.send();
 
 			this.httpResponseStatus = http.getResponseStatus();
-			this.httpResponseContent = http.getResponseContent();
-
-			if (this.httpResponseContent != null && this.httpResponseContent.length() > 10240) {
-				this.httpResponseContent = this.httpResponseContent.substring(0, 10239);
-			}
 
 			this.status = JobExecutionStatus.Success;
 		} catch (Exception e) {
