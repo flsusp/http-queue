@@ -17,9 +17,9 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.sql.rowset.serial.SerialBlob;
 
-import com.google.common.base.Joiner;
-
 import br.com.http.queue.HttpRequestMessage;
+
+import com.google.common.base.Joiner;
 
 @Entity
 @Table(name = "esb_job")
@@ -35,16 +35,16 @@ public class Job {
 	@Column(length = 2048, nullable = false)
 	private String url;
 
-	@Column(length = 4096, nullable = true)
+	@Column(length = 4000, nullable = true, name = "cookie_content")
 	private String cookieContent;
 
-	@Column(length = 255, nullable = true)
+	@Column(length = 255, nullable = true, name = "cookie_name")
 	private String cookieName;
 
-	@Column(length = 255, nullable = true)
+	@Column(length = 255, nullable = true, name = "basic_auth_username")
 	private String basicAuthUsername;
 
-	@Column(length = 255, nullable = true)
+	@Column(length = 255, nullable = true, name = "basic_auth_password")
 	private String basicAuthPassword;
 
 	@Column(length = 255, nullable = false)
@@ -53,9 +53,9 @@ public class Job {
 	private String minute = "*";
 	@Column(length = 255, nullable = false)
 	private String hour = "*";
-	@Column(length = 255, nullable = false)
+	@Column(length = 255, nullable = false, name = "day_of_month")
 	private String dayOfMonth = "*";
-	@Column(length = 255, nullable = false)
+	@Column(length = 255, nullable = false, name = "day_of_week")
 	private String dayOfWeek = "*";
 	@Column(length = 255, nullable = false)
 	private String month = "*";
@@ -65,6 +65,7 @@ public class Job {
 	@Column(nullable = false)
 	private boolean active = true;
 
+	@Column(name = "timer_handle")
 	@Lob
 	private Blob timerHandle;
 
@@ -232,7 +233,7 @@ public class Job {
 	public String getCronExpression() {
 		return Joiner.on(' ').join(this.second, minute, hour, dayOfWeek, dayOfMonth, month, year);
 	}
-	
+
 	public void inactivate() {
 		this.active = false;
 	}

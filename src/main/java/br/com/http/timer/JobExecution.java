@@ -33,18 +33,18 @@ public class JobExecution {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Job job;
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "ts_start")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date start;
 
-	@Column(nullable = true)
+	@Column(nullable = true, name = "ts_finish")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date finish;
 
-	@Column(nullable = true)
+	@Column(nullable = true, name = "http_response_status")
 	private Integer httpResponseStatus;
 
-	@Column(nullable = true, length = 1024)
+	@Column(nullable = true, length = 1024, name = "client_error")
 	private String clientError;
 
 	@Column(nullable = false, length = 50)
