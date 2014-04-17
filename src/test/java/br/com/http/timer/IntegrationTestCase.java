@@ -6,6 +6,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.transaction.TransactionManager;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import com.googlecode.mycontainer.datasource.DataSourceDeployer;
@@ -18,12 +19,6 @@ import com.googlecode.mycontainer.jta.MyTransactionManagerDeployer;
 import com.googlecode.mycontainer.kernel.ShutdownCommand;
 import com.googlecode.mycontainer.kernel.boot.ContainerBuilder;
 import com.googlecode.mycontainer.kernel.deploy.ScannerDeployer;
-import com.googlecode.mycontainer.web.ContextWebServer;
-import com.googlecode.mycontainer.web.FilterDesc;
-import com.googlecode.mycontainer.web.LogFilter;
-import com.googlecode.mycontainer.web.Realm;
-import com.googlecode.mycontainer.web.ServletDesc;
-import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
 
 public class IntegrationTestCase {
 
@@ -68,6 +63,29 @@ public class IntegrationTestCase {
 
 		ctx = builder.getContext();
 		tm = (TransactionManager) ctx.lookup("TransactionManager");
+	}
+
+	@AfterClass
+	public static void shutdown() {
+		try {
+			ShutdownCommand shutdown = new ShutdownCommand();
+			shutdown.setContext(new InitialContext());
+			shutdown.shutdown();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ContainerBuilder getBuilder() {
+		return builder;
+	}
+
+	public InitialContext getContext() {
+		return ctx;
+	}
+
+	public TransactionManager getTm() {
+		return tm;
 	}
 
 }
