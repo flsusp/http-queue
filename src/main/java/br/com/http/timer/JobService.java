@@ -1,6 +1,8 @@
 package br.com.http.timer;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityExistsException;
 import javax.ws.rs.Consumes;
@@ -17,7 +19,8 @@ import javax.ws.rs.core.Response.Status;
 import com.google.gson.JsonObject;
 
 @Path("/job")
-@RequestScoped
+@Stateless
+@Local(value = JobService.class)
 public class JobService {
 
 	@EJB

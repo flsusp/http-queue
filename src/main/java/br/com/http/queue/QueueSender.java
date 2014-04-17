@@ -1,6 +1,7 @@
 package br.com.http.queue;
 
 import javax.annotation.Resource;
+import javax.ejb.Local;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.jms.ConnectionFactory;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
+@Local(value = QueueSender.class)
 public class QueueSender {
 
 	private static final Logger logger = LoggerFactory.getLogger(QueueSender.class);

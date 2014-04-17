@@ -58,7 +58,7 @@ public class IntegrationTestCase {
 
 		ScannerDeployer scanner = builder.createDeployer(ScannerDeployer.class);
 		scanner.add(new StatelessScannableDeployer());
-		scanner.scan(JobManager.class);
+		scanner.scan(JobService.class);
 		scanner.deploy();
 
 		ctx = builder.getContext();
@@ -86,6 +86,11 @@ public class IntegrationTestCase {
 
 	public TransactionManager getTm() {
 		return tm;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected <T> T lookup(Class<T> clazz) throws NamingException {
+		return (T) ctx.lookup("ejb/" + clazz.getPackage().getName().replace('.', '/') + "/" + clazz.getSimpleName());
 	}
 
 }

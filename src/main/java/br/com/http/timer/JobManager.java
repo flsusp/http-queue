@@ -1,6 +1,7 @@
 package br.com.http.timer;
 
 import javax.annotation.Resource;
+import javax.ejb.Local;
 import javax.ejb.NoMoreTimeoutsException;
 import javax.ejb.ScheduleExpression;
 import javax.ejb.Stateless;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
+@Local(value = JobManager.class)
 public class JobManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(JobManager.class);
