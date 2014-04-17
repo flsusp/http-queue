@@ -8,9 +8,22 @@ import javax.transaction.TransactionManager;
 
 import org.junit.BeforeClass;
 
+import com.googlecode.mycontainer.datasource.DataSourceDeployer;
+import com.googlecode.mycontainer.ejb.SessionInterceptorDeployer;
+import com.googlecode.mycontainer.ejb.StatelessScannableDeployer;
+import com.googlecode.mycontainer.jpa.HibernateJPADeployer;
+import com.googlecode.mycontainer.jpa.JPADeployer;
+import com.googlecode.mycontainer.jpa.JPAInfoBuilder;
+import com.googlecode.mycontainer.jta.MyTransactionManagerDeployer;
+import com.googlecode.mycontainer.kernel.ShutdownCommand;
 import com.googlecode.mycontainer.kernel.boot.ContainerBuilder;
-import com.googlecode.mycontainer.kernel.deploy.MyTransactionManagerDeployer;
 import com.googlecode.mycontainer.kernel.deploy.ScannerDeployer;
+import com.googlecode.mycontainer.web.ContextWebServer;
+import com.googlecode.mycontainer.web.FilterDesc;
+import com.googlecode.mycontainer.web.LogFilter;
+import com.googlecode.mycontainer.web.Realm;
+import com.googlecode.mycontainer.web.ServletDesc;
+import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
 
 public class IntegrationTestCase {
 
@@ -21,6 +34,10 @@ public class IntegrationTestCase {
 	@BeforeClass
 	public static void bootMyContainer() throws NamingException {
 		builder = new ContainerBuilder();
+
+		SessionInterceptorDeployer sessionInterceptorDeployer = builder
+				.createDeployer(SessionInterceptorDeployer.class);
+		sessionInterceptorDeployer.deploy();
 
 		builder.createDeployer(MyTransactionManagerDeployer.class).setName("TransactionManager").deploy();
 

@@ -76,6 +76,26 @@
 			<version>1.4.7</version>
 		</dependency>
 		<dependency>
+			<groupId>com.googlecode.mycontainer</groupId>
+			<artifactId>mycontainer-jpa</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.mycontainer</groupId>
+			<artifactId>mycontainer-ejb</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.mycontainer</groupId>
+			<artifactId>mycontainer-datasource</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.mycontainer</groupId>
+			<artifactId>mycontainer-jms</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
