@@ -3,7 +3,6 @@ package br.com.http.timer;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityExistsException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
