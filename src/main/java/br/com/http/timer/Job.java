@@ -69,6 +69,10 @@ public class Job {
 	@Lob
 	private Blob timerHandle;
 
+	public Job(Long id) {
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}
