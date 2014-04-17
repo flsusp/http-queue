@@ -42,7 +42,7 @@ public class IntegrationTestCase {
 		builder.createDeployer(MyTransactionManagerDeployer.class).setName("TransactionManager").deploy();
 
 		DataSourceDeployer ds = builder.createDeployer(DataSourceDeployer.class);
-		ds.setName("TestDS");
+		ds.setName("EBSDS");
 		ds.setDriver("org.hsqldb.jdbcDriver");
 		ds.setUrl("jdbc:hsqldb:mem:.");
 		ds.setUser("sa");
@@ -50,11 +50,12 @@ public class IntegrationTestCase {
 
 		JPADeployer jpa = builder.createDeployer(HibernateJPADeployer.class);
 		JPAInfoBuilder info = (JPAInfoBuilder) jpa.getInfo();
-		info.setPersistenceUnitName("test-pu");
-		info.setJtaDataSourceName("TestDS");
-		info.addJarFileUrl(CustomerBean.class);
-		info.setPersistenceUnitRootUrl(CustomerBean.class);
+		info.setPersistenceUnitName("primary");
+		info.setJtaDataSourceName("EBSDS");
+		info.addJarFileUrl(JobManager.class);
+		info.setPersistenceUnitRootUrl(JobManager.class);
 		Properties props = info.getProperties();
+
 		props.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
 		props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		props.setProperty("hibernate.show_sql", "true");
@@ -62,7 +63,7 @@ public class IntegrationTestCase {
 
 		ScannerDeployer scanner = builder.createDeployer(ScannerDeployer.class);
 		scanner.add(new StatelessScannableDeployer());
-		scanner.scan(EntityManagerWrapperBean.class);
+		scanner.scan(JobManager.class);
 		scanner.deploy();
 
 		ctx = builder.getContext();
