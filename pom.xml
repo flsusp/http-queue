@@ -73,7 +73,7 @@
 		<dependency>
 			<groupId>com.googlecode.mycontainer</groupId>
 			<artifactId>mycontainer-web</artifactId>
-			<version>1.2.59</version>
+			<version>1.4.7</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
