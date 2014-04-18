@@ -1,16 +1,14 @@
 package br.com.http.timer;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Stateless
-@Local(value = JobExecutor.class)
 public class JobExecutor {
 
-	@Inject
+    @PersistenceContext(unitName = "primary")
 	private EntityManager em;
 
 	@Transactional(Transactional.TxType.REQUIRES_NEW)

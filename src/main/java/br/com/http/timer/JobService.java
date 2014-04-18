@@ -1,12 +1,12 @@
 package br.com.http.timer;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityExistsException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,11 +19,19 @@ import com.google.gson.JsonObject;
 
 @Path("/job")
 @Stateless
-@Local(value = JobService.class)
 public class JobService {
 
-	@EJB
+	@Inject
 	private JobManager jobManager;
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/greeting")
+	public Response greeting() {
+		JsonObject json = new JsonObject();
+		json.addProperty("ai","sim");
+		return Response.ok(json.toString()).build();
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
