@@ -58,8 +58,6 @@ public class IntegrationTestCase {
 
 		SimplifiedResponse responseToReturn = null;
 		HttpClientBuilder clientBuilder = HttpClients.custom();
-		// clientBuilder.setDefaultRequestConfig(RequestConfig.custom().setConnectionRequestTimeout(30000)
-		// .setConnectTimeout(30000).build());
 		try (CloseableHttpClient httpClient = clientBuilder.build()) {
 			HttpPost request = new HttpPost("http://localhost:4204" + path);
 			HttpEntity entity = new UrlEncodedFormEntity(nameValuePairs);
