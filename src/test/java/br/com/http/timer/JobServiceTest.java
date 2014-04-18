@@ -8,14 +8,19 @@ import java.util.Properties;
 
 import org.apache.openejb.jee.WebApp;
 import org.apache.openejb.jee.jpa.unit.PersistenceUnit;
+import org.apache.openejb.junit.ApplicationComposer;
 import org.apache.openejb.testing.Classes;
 import org.apache.openejb.testing.Configuration;
+import org.apache.openejb.testing.EnableServices;
 import org.apache.openejb.testing.Module;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import br.com.base.test.IntegrationTestCase;
 import br.com.base.test.SimplifiedResponse;
 
+@EnableServices(value = "jaxrs", httpDebug = true)
+@RunWith(ApplicationComposer.class)
 public class JobServiceTest extends IntegrationTestCase {
 
 	@Module

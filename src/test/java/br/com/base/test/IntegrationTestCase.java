@@ -20,12 +20,7 @@ import org.apache.http.util.EntityUtils;
 import org.apache.openejb.OpenEjbContainer;
 import org.apache.openejb.jee.WebApp;
 import org.apache.openejb.jee.jpa.unit.PersistenceUnit;
-import org.apache.openejb.junit.ApplicationComposer;
-import org.apache.openejb.testing.EnableServices;
-import org.junit.runner.RunWith;
 
-@EnableServices(value = "jaxrs", httpDebug = true)
-@RunWith(ApplicationComposer.class)
 public class IntegrationTestCase {
 
 	protected PersistenceUnit setupPersistenceUnit() {
