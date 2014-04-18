@@ -38,7 +38,6 @@ public class JobManager {
 			throw new JobAlreadyExistsException();
 		}
 		em.persist(job);
-		em.flush();
 
 		ScheduleExpression schedule = new ScheduleExpression();
 		schedule.second(job.getSecond());
