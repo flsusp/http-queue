@@ -70,31 +70,6 @@
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
 		</dependency>
-		<!-- dependency>
-			<groupId>com.googlecode.mycontainer</groupId>
-			<artifactId>mycontainer-web</artifactId>
-			<version>1.4.7</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.mycontainer</groupId>
-			<artifactId>mycontainer-jpa</artifactId>
-			<version>1.4.7</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.mycontainer</groupId>
-			<artifactId>mycontainer-ejb</artifactId>
-			<version>1.4.7</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.mycontainer</groupId>
-			<artifactId>mycontainer-datasource</artifactId>
-			<version>1.4.7</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.mycontainer</groupId>
-			<artifactId>mycontainer-jms</artifactId>
-			<version>1.4.7</version>
-		</dependency-->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
