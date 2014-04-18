@@ -65,9 +65,13 @@ public class Job {
 	@Column(nullable = false)
 	private boolean active = true;
 
-	@Column(name = "timer_handle")
 	@Lob
+	@Column(name = "timer_handle")
 	private Blob timerHandle;
+
+	public Job() {
+		super();
+	}
 
 	public Job(Long id) {
 		this.id = id;
