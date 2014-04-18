@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.Properties;
 
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.openejb.OpenEjbContainer;
@@ -58,9 +56,6 @@ public class JobServiceTest {
 		String string = WebClient.create("http://localhost:4204").path("/job/greeting")
 				.accept(MediaType.APPLICATION_JSON_TYPE).get(String.class);
 		assertEquals("{\"ai\":\"sim\"}", string);
-		// JobService service = (JobService)
-		// getContext().lookup("JobService/local");
-		//
 		// service.createJob(null, "GET", "http://www.dextra.com.br", null,
 		// null, null, null, "0 0 12 1/1 * ? *");
 	}
