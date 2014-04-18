@@ -2,7 +2,6 @@ package br.com.http.timer;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityExistsException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -13,6 +12,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import br.com.http.timer.exception.JobAlreadyExistsException;
 
 import com.google.gson.JsonObject;
 
@@ -41,7 +42,7 @@ public class JobService {
 
 		try {
 			job = jobManager.createJob(job);
-		} catch (EntityExistsException e) {
+		} catch (JobAlreadyExistsException e) {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 

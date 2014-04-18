@@ -16,6 +16,8 @@ import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.http.timer.exception.JobAlreadyExistsException;
+
 @Stateless
 public class JobManager {
 
@@ -30,8 +32,13 @@ public class JobManager {
 	@Inject
 	private JobExecutor executor;
 
-	public Job createJob(Job job) {
+	public Job createJob(Job job) throws JobAlreadyExistsException {
+		Job jobFound = em.find(Job.class, job.getId());
+		if (jobFound != null) {
+			throw new JobAlreadyExistsException();
+		}
 		em.persist(job);
+		em.flush();
 
 		ScheduleExpression schedule = new ScheduleExpression();
 		schedule.second(job.getSecond());

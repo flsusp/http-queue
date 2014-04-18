@@ -72,7 +72,7 @@ public class JobServiceTest {
 	public void testCreateJobWithId() {
 		SimplifiedResponse response = post("/job", new HashMap<String, String>() {
 			{
-				put("id", "1");
+				put("id", "2");
 				put("method", "GET");
 				put("url", "http://www.dextra.com.br/");
 				put("cron", "* * * * * * *");
