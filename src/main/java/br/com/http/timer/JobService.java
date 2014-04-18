@@ -1,6 +1,6 @@
 package br.com.http.timer;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityExistsException;
 import javax.ws.rs.Consumes;
@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response.Status;
 import com.google.gson.JsonObject;
 
 @Path("/job")
-@Stateless
+@SessionScoped
 public class JobService {
 
 	@Inject

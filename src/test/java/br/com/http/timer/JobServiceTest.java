@@ -1,6 +1,7 @@
 package br.com.http.timer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,16 +69,38 @@ public class JobServiceTest {
 
 	@SuppressWarnings("serial")
 	@Test
-	public void testCreateJob() {
+	public void testCreateJobWithId() {
 		SimplifiedResponse response = post("/job", new HashMap<String, String>() {
 			{
+				put("id", "1");
 				put("method", "GET");
 				put("url", "http://www.dextra.com.br/");
 				put("cron", "* * * * * * *");
 			}
 		});
 		assertEquals(200, response.getStatusCode());
-		assertEquals("{\"id\":1}", response.getContent());
+		assertNotNull(response.getContent());
+	}
+
+	@SuppressWarnings("serial")
+	@Test
+	public void testCreateJobWithSameIdTwice() {
+		HashMap<String, String> formParameters = new HashMap<String, String>() {
+			{
+				put("id", "1");
+				put("method", "GET");
+				put("url", "http://www.dextra.com.br/");
+				put("cron", "* * * * * * *");
+			}
+		};
+
+		SimplifiedResponse response = post("/job", formParameters);
+		assertEquals(200, response.getStatusCode());
+		assertNotNull(response.getContent());
+
+		response = post("/job", formParameters);
+		assertEquals(400, response.getStatusCode());
+		assertNotNull(response.getContent());
 	}
 
 	private SimplifiedResponse post(String path, Map<String, String> formParameters) {
