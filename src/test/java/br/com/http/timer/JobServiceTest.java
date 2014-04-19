@@ -13,7 +13,6 @@ import org.apache.openejb.testing.Classes;
 import org.apache.openejb.testing.Configuration;
 import org.apache.openejb.testing.EnableServices;
 import org.apache.openejb.testing.Module;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -42,7 +41,6 @@ public class JobServiceTest extends IntegrationTestCase {
 
 
 	@SuppressWarnings("serial")
-	@Ignore
 	@Test
 	public void testCreateJobWithoutId() {
 		SimplifiedResponse response = post("/job", new HashMap<String, String>() {

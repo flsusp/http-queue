@@ -33,11 +33,14 @@ public class JobManager {
 	private JobExecutor executor;
 
 	public Job createJob(Job job) throws JobAlreadyExistsException {
-		Job jobFound = em.find(Job.class, job.getId());
-		if (jobFound != null) {
-			throw new JobAlreadyExistsException();
+		if (job.getId() != null) {
+			if (em.find(Job.class, job.getId()) != null)
+				throw new JobAlreadyExistsException();
+
+			em.merge(job);
+		} else {
+			em.persist(job);
 		}
-		em.persist(job);
 
 		ScheduleExpression schedule = new ScheduleExpression();
 		schedule.second(job.getSecond());

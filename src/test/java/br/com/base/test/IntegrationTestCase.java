@@ -27,7 +27,11 @@ public class IntegrationTestCase {
 		PersistenceUnit unit = new PersistenceUnit("primary");
 		unit.setJtaDataSource("openejb/Resource/ESBDS");
 
-		unit.setProperty("openjpa.jdbc.SynchronizeMappings", "buildSchema(ForeignKeys=true)");
+		unit.setProvider("org.hibernate.ejb.HibernatePersistence");
+
+		unit.setProperty("hibernate.transaction.manager_lookup_class",
+				"org.apache.openejb.hibernate.TransactionManagerLookup");
+
 		unit.setProperty("hibernate.hbm2ddl.auto", "update");
 		unit.setProperty("hibernate.show_sql", "true");
 		return unit;
