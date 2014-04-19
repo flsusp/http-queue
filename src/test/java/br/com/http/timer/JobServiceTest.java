@@ -39,7 +39,6 @@ public class JobServiceTest extends IntegrationTestCase {
 		return setupConfigurationProperties();
 	}
 
-
 	@SuppressWarnings("serial")
 	@Test
 	public void testCreateJobWithoutId() {

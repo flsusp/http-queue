@@ -17,8 +17,6 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.sql.rowset.serial.SerialBlob;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import br.com.http.queue.HttpRequestMessage;
 
 import com.google.common.base.Joiner;
@@ -28,8 +26,7 @@ import com.google.common.base.Joiner;
 public class Job {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "UseExistingOrGenerateId")
-	@GenericGenerator(name = "UseExistingOrGenerateId", strategy = "br.com.http.persistence.UseExistingOrGenerateIdGenerator")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(length = 10, nullable = false)
