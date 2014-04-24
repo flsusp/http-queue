@@ -1,5 +1,7 @@
 package br.com.http.timer;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -19,7 +21,9 @@ import com.google.gson.JsonObject;
 
 @Path("/job")
 @SessionScoped
-public class JobService {
+public class JobService implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private JobManager jobManager;
