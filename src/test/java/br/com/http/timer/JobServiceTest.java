@@ -41,20 +41,6 @@ public class JobServiceTest extends IntegrationTestCase {
 
 	@SuppressWarnings("serial")
 	@Test
-	public void testCreateJobWithoutId() {
-		SimplifiedResponse response = post("/job", new HashMap<String, String>() {
-			{
-				put("method", "GET");
-				put("url", "http://www.dextra.com.br/");
-				put("cron", "* * * * * * *");
-			}
-		});
-		assertEquals(200, response.getStatusCode());
-		assertNotNull(response.getContent());
-	}
-
-	@SuppressWarnings("serial")
-	@Test
 	public void testCreateJobWithId() {
 		SimplifiedResponse response = post("/job", new HashMap<String, String>() {
 			{

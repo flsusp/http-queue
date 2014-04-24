@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import javax.ejb.TimerHandle;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -26,7 +24,6 @@ import com.google.common.base.Joiner;
 public class Job {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(length = 10, nullable = false)
