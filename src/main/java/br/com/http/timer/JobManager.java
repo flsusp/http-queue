@@ -81,7 +81,8 @@ public class JobManager {
 
 		Job job = em.find(Job.class, timer.getInfo());
 		if (job == null) {
-			logger.info("Job with id {} not found.", timer.getInfo());
+			logger.info("Job with id {} not found. Canceling...", timer.getInfo());
+			timer.cancel();
 		} else if (!job.isActivate()) {
 			logger.info("Skipping execution of job {} because it is marked as inactive.", timer.getInfo());
 		} else {
