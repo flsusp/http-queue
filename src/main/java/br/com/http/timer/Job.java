@@ -66,7 +66,8 @@ public class Job {
 	@Column(name = "timer_handle")
 	private Blob timerHandle;
 
-	public Job() {
+	@SuppressWarnings("unused")
+	private Job() {
 		super();
 	}
 
