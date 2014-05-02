@@ -80,6 +80,12 @@
 			<artifactId>openejb-core-hibernate</artifactId>
 			<version>4.6.0</version>
 			<type>pom</type>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-jdk14</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -103,6 +109,12 @@
 			<artifactId>openejb-core</artifactId>
 			<version>4.6.0</version>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-jdk14</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.openejb</groupId>
