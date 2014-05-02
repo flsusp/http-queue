@@ -33,13 +33,8 @@ public class JobManager {
 	private JobExecutor executor;
 
 	public Job createJob(Job job) throws JobAlreadyExistsException {
-		if (job.getId() != null) {
-			if (em.find(Job.class, job.getId()) != null)
-				throw new JobAlreadyExistsException();
-
-			em.merge(job);
-		} else {
-			em.persist(job);
+		if (job.getId() != null && em.find(Job.class, job.getId()) != null) {
+			throw new JobAlreadyExistsException();
 		}
 
 		ScheduleExpression schedule = new ScheduleExpression();
@@ -59,14 +54,22 @@ public class JobManager {
 		logger.info("Timer {} created with cron expression {}. The next timeout is {}.", job.getId(),
 				job.getCronExpression(), timer.getNextTimeout());
 
+		if (job.getId() != null) {
+			em.merge(job);
+		} else {
+			em.persist(job);
+		}
+
 		return job;
 	}
 
 	public void removeJob(long jobId) {
 		Job job = em.find(Job.class, jobId);
-		TimerHandle timerHandle = job.geTimerHandle();
-		timerHandle.getTimer().cancel();
 		job.inactivate();
+		TimerHandle timerHandle = job.geTimerHandle();
+		if (timerHandle != null) {
+			timerHandle.getTimer().cancel();
+		}
 	}
 
 	@Timeout

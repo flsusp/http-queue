@@ -204,6 +204,8 @@ public class Job {
 
 	public TimerHandle geTimerHandle() {
 		try {
+			if (timerHandle == null)
+				return null;
 			ObjectInputStream input = new ObjectInputStream(timerHandle.getBinaryStream());
 			return (TimerHandle) input.readObject();
 		} catch (ClassNotFoundException | SQLException | IOException e) {
