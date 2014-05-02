@@ -6,14 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +29,8 @@ public class JobExecution {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Job job;
+	@Column(nullable = false)
+	private long job;
 
 	@Column(nullable = false, name = "ts_start")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -51,8 +50,12 @@ public class JobExecution {
 	@Enumerated(EnumType.STRING)
 	private JobExecutionStatus status;
 
+	@Transient
+	private Job jobInstance;
+
 	public JobExecution(Job job) {
-		this.job = job;
+		this.job = job.getId();
+		this.jobInstance = job;
 		this.start = new Date();
 		this.status = JobExecutionStatus.Running;
 	}
@@ -62,7 +65,7 @@ public class JobExecution {
 	}
 
 	public void execute() {
-		HttpRequestMessage http = job.createHttpRequestMessage();
+		HttpRequestMessage http = jobInstance.createHttpRequestMessage();
 
 		try {
 			http.send();
