@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 @Stateless
 public class JobExecutor {
 
-    @PersistenceContext(unitName = "primary")
+	@PersistenceContext(unitName = "primary")
 	private EntityManager em;
 
 	@Transactional(Transactional.TxType.REQUIRES_NEW)
@@ -19,8 +19,8 @@ public class JobExecutor {
 	}
 
 	@Transactional(Transactional.TxType.REQUIRES_NEW)
-	public void execute(JobExecution execution) {
+	public void execute(JobExecution execution, Job job) {
 		execution = em.merge(execution);
-		execution.execute();
+		execution.execute(job);
 	}
 }

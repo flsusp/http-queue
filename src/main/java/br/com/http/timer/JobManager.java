@@ -90,7 +90,7 @@ public class JobManager {
 			logger.info("Skipping execution of job {} because it is marked as inactive.", timer.getInfo());
 		} else {
 			JobExecution execution = executor.createExecution(job);
-			executor.execute(execution);
+			executor.execute(execution, job);
 		}
 	}
 }

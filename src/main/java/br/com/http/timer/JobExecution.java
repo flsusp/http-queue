@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,12 +49,8 @@ public class JobExecution {
 	@Enumerated(EnumType.STRING)
 	private JobExecutionStatus status;
 
-	@Transient
-	private Job jobInstance;
-
 	public JobExecution(Job job) {
 		this.job = job.getId();
-		this.jobInstance = job;
 		this.start = new Date();
 		this.status = JobExecutionStatus.Running;
 	}
@@ -64,8 +59,8 @@ public class JobExecution {
 		super();
 	}
 
-	public void execute() {
-		HttpRequestMessage http = jobInstance.createHttpRequestMessage();
+	public void execute(Job job) {
+		HttpRequestMessage http = job.createHttpRequestMessage();
 
 		try {
 			http.send();
