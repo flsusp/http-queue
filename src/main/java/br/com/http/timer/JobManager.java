@@ -65,10 +65,14 @@ public class JobManager {
 
 	public void removeJob(long jobId) {
 		Job job = em.find(Job.class, jobId);
-		em.remove(job);
-		TimerHandle timerHandle = job.geTimerHandle();
-		if (timerHandle != null) {
-			timerHandle.getTimer().cancel();
+		if (job != null) {
+			em.remove(job);
+			TimerHandle timerHandle = job.geTimerHandle();
+			if (timerHandle != null) {
+				timerHandle.getTimer().cancel();
+			}
+		} else {
+			logger.info("Job with id {} not found. Canceling...", jobId);
 		}
 	}
 
