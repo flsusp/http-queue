@@ -10,7 +10,7 @@
       <jta-data-source>java:jboss/datasources/ESBDS</jta-data-source>
       <properties>
          <property name="hibernate.hbm2ddl.auto" value="update" />
-         <property name="hibernate.show_sql" value="true" />
+         <property name="hibernate.show_sql" value="false" />
       </properties>
    </persistence-unit>
 </persistence>
