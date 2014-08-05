@@ -74,5 +74,4 @@ public class JobServiceTest extends IntegrationTestCase {
 		assertEquals(400, response.getStatusCode());
 		assertNotNull(response.getContent());
 	}
-
 }

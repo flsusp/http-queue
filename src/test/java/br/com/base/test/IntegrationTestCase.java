@@ -33,7 +33,7 @@ public class IntegrationTestCase {
 				"org.apache.openejb.hibernate.TransactionManagerLookup");
 
 		unit.setProperty("hibernate.hbm2ddl.auto", "update");
-		unit.setProperty("hibernate.show_sql", "true");
+		unit.setProperty("hibernate.show_sql", "false");
 		return unit;
 	}
 

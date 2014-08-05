@@ -72,7 +72,7 @@ public class JobManager {
 				timerHandle.getTimer().cancel();
 			}
 		} else {
-			logger.info("Job with id {} not found. Canceling...", jobId);
+			logger.info("Job with id {} not found. Cancelling...", jobId);
 		}
 	}
 
@@ -80,7 +80,7 @@ public class JobManager {
 	public void execute(Timer timer) {
 		try {
 			if (timer.getTimeRemaining() < 0) {
-				logger.info("Skipping missed job timeout with id {}, timer.getInfo()");
+				logger.info("Skipping missed job timeout with id {}", timer.getInfo());
 				return;
 			}
 		} catch (NoMoreTimeoutsException e) {
@@ -88,7 +88,7 @@ public class JobManager {
 
 		Job job = em.find(Job.class, timer.getInfo());
 		if (job == null) {
-			logger.info("Job with id {} not found. Canceling...", timer.getInfo());
+			logger.info("Job with id {} not found. Cancelling...", timer.getInfo());
 			timer.cancel();
 		} else if (!job.isActivate()) {
 			logger.info("Skipping execution of job {} because it is marked as inactive.", timer.getInfo());

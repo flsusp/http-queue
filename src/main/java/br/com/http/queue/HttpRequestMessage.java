@@ -103,8 +103,8 @@ public class HttpRequestMessage implements Serializable {
 				stopwatch.stop();
 
 				if (success()) {
-					logger.info("Request to {} processed successfully with code {} [{} ms] : \n{}", url,
-							responseStatus, stopwatch.elapsed(TimeUnit.MILLISECONDS), responseContent);
+					logger.info("Message to {} processed successfully with code {} [{} ms]", url,
+							responseStatus, stopwatch.elapsed(TimeUnit.MILLISECONDS));
 				} else {
 					logger.info("Request to {} processed with error code {} [{} ms] : \n{}", url, responseStatus,
 							stopwatch.elapsed(TimeUnit.MILLISECONDS), responseContent);
@@ -113,6 +113,10 @@ public class HttpRequestMessage implements Serializable {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public String getMethod() {
+		return method;
 	}
 
 	public int getResponseStatus() {

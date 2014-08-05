@@ -24,7 +24,7 @@ public class QueueSender {
 	private Destination destination;
 
 	public void send(HttpRequestMessage message) {
-		logger.info("Message received : {}", message.getUrl());
+		logger.info("Message received : {} {}", message.getMethod(), message.getUrl());
 		JMSSenderUtil.sendJMSMessage(connectionFactory, destination, message);
 	}
 }

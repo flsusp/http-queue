@@ -33,6 +33,7 @@ public class QueueService {
 		}
 
 		queue.send(message);
+
 		return Response.ok().build();
 	}
 }
